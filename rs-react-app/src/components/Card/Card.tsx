@@ -7,15 +7,15 @@ class Card extends Component<{ item: ApiResponseCharacter }> {
       <div className="card">
         <h4>{item.nickname}</h4>
         <div>
-          <p>
-            Fullname
-            <span>{item.fullName}</span>
+          <p className="card-text">
+            Fullname:
+            <span className="card-mean"> {item.fullName}</span>
           </p>
-          <p>
-            HogwartsHouse
-            <span>{item.hogwartsHouse}</span>
+          <p className="card-text">
+            HogwartsHouse:
+            <span className="card-mean"> {item.hogwartsHouse}</span>
           </p>
-          <img alt="portrets" src={item.image}></img>
+          <img alt="portrets" src={item.image} className='card-img'></img>
         </div>
       </div>
     );
