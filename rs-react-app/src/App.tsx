@@ -12,7 +12,7 @@ interface AllState {
   error: Error | null;
   hasError: boolean;
 }
-class App extends Component<{}, AllState> {
+class App extends Component<object, AllState> {
   state: AllState = {
     items: [],
     searchWord: localStorage.getItem('searchParameter') || '',
