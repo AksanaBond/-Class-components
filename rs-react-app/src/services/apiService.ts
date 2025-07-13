@@ -1,4 +1,4 @@
-§const API_BASE_URL = 'potterapi-fedeperin.vercel.app/en/characters';
+const API_BASE_URL = 'http://potterapi-fedeperin.vercel.app/en/characters';
 export interface ApiResponseCharacter {
   fullName: string;
   nickname: string;

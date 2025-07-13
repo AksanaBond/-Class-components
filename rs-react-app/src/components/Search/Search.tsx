@@ -1,5 +1,21 @@
 import { Component } from 'react';
-class Search extends Component {
+interface SearchProps {
+  onSearch: (searchword: string) => void;
+  initialValue: string;
+}
+interface SearchState {
+  inputValue: string;
+}
+class Search extends Component<SearchProps, SearchState> {
+  state = {
+    inputValue: this.props.initialValue || '',
+  };
+  inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ inputValue: event.target.value });
+  };
+  searchClick = () => {
+    this.props.onSearch(this.state.inputValue.trim());
+  };
   render() {
     return (
       <div className="search">
@@ -7,8 +23,9 @@ class Search extends Component {
           type="text"
           placeholder="Search characters..."
           className="search-input"
+          onChange={this.inputChange}
         />
-        <button>Search</button>
+        <button onClick={this.searchClick}>Search</button>
       </div>
     );
   }
