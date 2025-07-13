@@ -8,7 +8,7 @@ class CardList extends Component<CardListProps> {
   render() {
     return (
       <div className="card-list">
-        <div className='card-result'>Result</div>
+        <div className="card-result">Result</div>
         {this.props.items.map((item) => (
           <Card key={item.index} item={item} />
         ))}

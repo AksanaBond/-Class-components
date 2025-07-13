@@ -4,11 +4,13 @@ import Search from './components/Search/Search';
 import CardList from './components/CardList/CardList';
 import { fetchItems, type ApiResponseCharacter } from './services/apiService';
 import Spinner from './components/Spinner/Spinner';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 interface AllState {
   items: ApiResponseCharacter[];
   isLoading: boolean;
   searchWord: string;
-  error: null;
+  error: Error | null;
+  hasError: boolean;
 }
 class App extends Component<{}, AllState> {
   state: AllState = {
@@ -16,6 +18,7 @@ class App extends Component<{}, AllState> {
     searchWord: localStorage.getItem('searchParameter') || '',
     error: null,
     isLoading: true,
+    hasError: false,
   };
   componentDidMount() {
     this.loadItems(this.state.searchWord);
@@ -35,26 +38,36 @@ class App extends Component<{}, AllState> {
     localStorage.setItem('searchParameter', searchWord);
     this.loadItems(searchWord);
   };
+  throwError = () => {
+    this.setState({ hasError: true });
+  };
 
   render() {
+    if (this.state.hasError) {
+      return <h1>Sorry.. there was an error.</h1>;
+    }
     return (
-      <div className="App">
-        <header className="App-header">
-          <Search
-            onSearch={this.handleSearch}
-            initialValue={this.state.searchWord}
-          />
-        </header>
-        <main className="App-main">
-          {this.state.isLoading && <Spinner />}
-          {!this.state.isLoading && !this.state.error && (
-            <CardList items={this.state.items} />
-          )}
-        </main>
-        <footer>
-          <button className="error-button">Throw Error</button>
-        </footer>
-      </div>
+      <ErrorBoundary>
+        <div className="App">
+          <header className="App-header">
+            <Search
+              onSearch={this.handleSearch}
+              initialValue={this.state.searchWord}
+            />
+          </header>
+          <main className="App-main">
+            {this.state.isLoading && <Spinner />}
+            {!this.state.isLoading && !this.state.error && (
+              <CardList items={this.state.items} />
+            )}
+          </main>
+          <footer>
+            <button onClick={this.throwError} className="error-button">
+              Throw Error
+            </button>
+          </footer>
+        </div>
+      </ErrorBoundary>
     );
   }
 }

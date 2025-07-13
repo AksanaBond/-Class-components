@@ -5,7 +5,7 @@ class Card extends Component<{ item: ApiResponseCharacter }> {
     const { item } = this.props;
     return (
       <div className="card">
-        <h4 className='card-name'>{item.nickname}</h4>
+        <h4 className="card-name">{item.nickname}</h4>
         <div>
           <p className="card-text">
             Fullname:
