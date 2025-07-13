@@ -5,7 +5,7 @@ class Card extends Component<{ item: ApiResponseCharacter }> {
     const { item } = this.props;
     return (
       <div className="card">
-        <h4>{item.nickname}</h4>
+        <h4 className='card-name'>{item.nickname}</h4>
         <div>
           <p className="card-text">
             Fullname:
@@ -15,7 +15,7 @@ class Card extends Component<{ item: ApiResponseCharacter }> {
             HogwartsHouse:
             <span className="card-mean"> {item.hogwartsHouse}</span>
           </p>
-          <img alt="portrets" src={item.image} className='card-img'></img>
+          <img alt="portrets" src={item.image} className="card-img"></img>
         </div>
       </div>
     );

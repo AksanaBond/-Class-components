@@ -3,8 +3,10 @@ import { Component } from 'react';
 import Search from './components/Search/Search';
 import CardList from './components/CardList/CardList';
 import { fetchItems, type ApiResponseCharacter } from './services/apiService';
+import Spinner from './components/Spinner/Spinner';
 interface AllState {
   items: ApiResponseCharacter[];
+  isLoading: boolean;
   searchWord: string;
   error: null;
 }
@@ -13,18 +15,19 @@ class App extends Component<{}, AllState> {
     items: [],
     searchWord: localStorage.getItem('searchParameter') || '',
     error: null,
+    isLoading: true,
   };
   componentDidMount() {
     this.loadItems(this.state.searchWord);
   }
   loadItems = (searchWord: string) => {
-    this.setState({ error: null });
+    this.setState({ error: null, isLoading: true });
     fetchItems(searchWord)
       .then((items) => {
-        this.setState({ items });
+        this.setState({ items, isLoading: false });
       })
       .catch((error) => {
-        this.setState({ error });
+        this.setState({ error, isLoading: false });
       });
   };
   handleSearch = (searchWord: string) => {
@@ -43,7 +46,10 @@ class App extends Component<{}, AllState> {
           />
         </header>
         <main className="App-main">
-          {!this.state.error && <CardList items={this.state.items} />}
+          {this.state.isLoading && <Spinner />}
+          {!this.state.isLoading && !this.state.error && (
+            <CardList items={this.state.items} />
+          )}
         </main>
         <footer>
           <button className="error-button">Throw Error</button>

@@ -9,6 +9,7 @@
   gap: 9rem;
   align-items: center;
   justify-content: space-between;
+  border-bottom: #464141 1px solid;
 }
 
 .read-the-docs {
@@ -61,6 +62,13 @@
   text-align: center;
   border-bottom: #ea346b 3px solid;
 }
+.card-name {
+  font-weight: 600;
+  font-style: italic;
+  padding: 0.2rem;
+  color: #ea346b;
+  width: 100px;
+}
 .error-button {
   background-color: #ea346b;
   color: white;
@@ -70,4 +78,21 @@
   cursor: pointer;
   margin-right: 0;
   margin-left: 20em;
+}
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #555555;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
